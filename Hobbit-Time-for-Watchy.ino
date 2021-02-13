@@ -10,42 +10,38 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
         uint16_t w1, h1;
       
         display.getTextBounds(text, 0, 0, &x1, &y1, &w1, &h1);
-        if (y2 == -10 ) {
-          display.setCursor(100-w1/2,100-h1/2);
-        } else {
-          display.setCursor(100-w1/2,y2+h1);
-        }
+          display.setCursor(100-w1/2,y2+h1/2);
         display.print(text);
       }
   
     void drawWatchFace() { //override this method to customize how the watch face looks
       String textstring = "";
-      const char *lines [25] = {
-        "Midnight snack",
-        "Sleep",
-        "Sleep",
-        "Sleep",
-        "Sleep",
-        "Sleep",
-        "breakfast",
-        "Breakfast",
-        "second breakfast",
-        "Second breakfast",
-        "elevenses",
-        "Elevenses",
-        "Luncheon",
-        "After lunch nap",
-        "Afternoon tea",
-        "three-ish",
-        "dinner",
-        "Dinner",
-        "Supper",
-        "Supper",
-        "Eight-ish",
-        "Nine-ish",
-        "Sleep",
-        "Sleep",
-        "Midnight snack"
+      const char *lines [25][] = {
+        {2,"Midnight","snack"},
+        {1,"Sleep"},
+        {1,"Sleep"},
+        {1,"Sleep"},
+        {1,"Sleep"},
+        {1,"Sleep"},
+        {2,"Almost","breakfast"},
+        {1,"Breakfast"},
+        {3,"Almost","second","breakfast"},
+        {2,"Second","breakfast"},
+        {2,"Almost","elevenses"},
+        {1,"Elevenses"},
+        {1,"Luncheon"},
+        {3,"After","lunch","nap"},
+        {2,"Afternoon","tea"},
+        {1,"Three-ish"},
+        {2,"Almost","dinner"},
+        {1,"Dinner"},
+        {2,"Almost","supper"},
+        {1,"Supper"},
+        {1,"Eight-ish"},
+        {1,"Nine-ish"},
+        {1,"Sleep"},
+        {1,"Sleep"},
+        {2,"Midnight","snack"}
       };
 
       //drawbg
@@ -62,15 +58,19 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       textstring = currentTime.Hour;
       textstring += ":";
       textstring += currentTime.Minute;
-      drawCentered(textstring,5);
+      drawCentered(textstring,15);
 
       //drawlabel
       display.setFont(&NunitoSans_Black18pt7b);
-      if(currentTime.Hour == 6 || currentTime.Hour == 8 || currentTime.Hour == 10 | currentTime.Hour == 16 || currentTime.Hour == 18){
-        drawCentered("Almost",80);
-        drawCentered(lines[currentTime.Hour],102);
-      }
-      drawCentered(lines[currentTime.Hour],-10);
+      if (lines[currentTime.Hour][0]==1){
+      drawCentered(lines[currentTime.Hour][1],100);
+    } else if (lines[currentTime.Hour][0]==2){
+      drawCentered(lines[currentTime.Hour][1],90);
+      drawCentered(lines[currentTime.Hour][2],110);
+    } else if (lines[currentTime.Hour][0]==3){
+      drawCentered(lines[currentTime.Hour][1],80);
+      drawCentered(lines[currentTime.Hour][2],100);
+      drawCentered(lines[currentTime.Hour][3],120);
     }
 };
 
