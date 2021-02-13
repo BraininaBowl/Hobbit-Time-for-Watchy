@@ -16,32 +16,32 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
   
     void drawWatchFace() { //override this method to customize how the watch face looks
       String textstring = "";
-      const char *lines [25][] = {
-        {2,"Midnight","snack"},
-        {1,"Sleep"},
-        {1,"Sleep"},
-        {1,"Sleep"},
-        {1,"Sleep"},
-        {1,"Sleep"},
-        {2,"Almost","breakfast"},
-        {1,"Breakfast"},
-        {3,"Almost","second","breakfast"},
-        {2,"Second","breakfast"},
-        {2,"Almost","elevenses"},
-        {1,"Elevenses"},
-        {1,"Luncheon"},
-        {3,"After","lunch","nap"},
-        {2,"Afternoon","tea"},
-        {1,"Three-ish"},
-        {2,"Almost","dinner"},
-        {1,"Dinner"},
-        {2,"Almost","supper"},
-        {1,"Supper"},
-        {1,"Eight-ish"},
-        {1,"Nine-ish"},
-        {1,"Sleep"},
-        {1,"Sleep"},
-        {2,"Midnight","snack"}
+      const char *lines [25][4] = {
+        {"2","Midnight","snack"},
+        {"1","Sleep"},
+        {"1","Sleep"},
+        {"1","Sleep"},
+        {"1","Sleep"},
+        {"1","Sleep"},
+        {"2","Almost","breakfast"},
+        {"1","Breakfast"},
+        {"3","Almost","second","breakfast"},
+        {"2","Second","breakfast"},
+        {"2","Almost","elevenses"},
+        {"1","Elevenses"},
+        {"1","Luncheon"},
+        {"3","After","lunch","nap"},
+        {"2","Afternoon","tea"},
+        {"1","Three-ish"},
+        {"2","Almost","dinner"},
+        {"1","Dinner"},
+        {"2","Almost","supper"},
+        {"1","Supper"},
+        {"1","Eight-ish"},
+        {"1","Nine-ish"},
+        {"1","Sleep"},
+        {"1","Sleep"},
+        {"2","Midnight","snack"}
       };
 
       //drawbg
@@ -57,21 +57,25 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       display.setFont(&NunitoSans_Black12pt7b);
       textstring = currentTime.Hour;
       textstring += ":";
+      if (currentTime.Minute<10){
+        textstring += "0";
+      }
       textstring += currentTime.Minute;
       drawCentered(textstring,15);
 
       //drawlabel
       display.setFont(&NunitoSans_Black18pt7b);
-      if (lines[currentTime.Hour][0]==1){
+      if (lines[currentTime.Hour][0]=="1"){
       drawCentered(lines[currentTime.Hour][1],100);
-    } else if (lines[currentTime.Hour][0]==2){
-      drawCentered(lines[currentTime.Hour][1],90);
-      drawCentered(lines[currentTime.Hour][2],110);
-    } else if (lines[currentTime.Hour][0]==3){
-      drawCentered(lines[currentTime.Hour][1],80);
+    } else if (lines[currentTime.Hour][0]=="2"){
+      drawCentered(lines[currentTime.Hour][1],86);
+      drawCentered(lines[currentTime.Hour][2],114);
+    } else if (lines[currentTime.Hour][0]=="3"
+    ){
+      drawCentered(lines[currentTime.Hour][1],72);
       drawCentered(lines[currentTime.Hour][2],100);
-      drawCentered(lines[currentTime.Hour][3],120);
-    }
+      drawCentered(lines[currentTime.Hour][3],128);
+    }}
 };
 
 WatchFace m; //instantiate your watchface
