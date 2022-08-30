@@ -39,7 +39,7 @@ void HobbitTime::drawWatchFace() { //override this method to customize how the w
     {"Midnight","snack"}
   };
   
-  const int linecount[25]= {
+  const char linecount[25]= {
     2,
     1,
     1,
