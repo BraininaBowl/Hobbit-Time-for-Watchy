@@ -11,32 +11,60 @@ void HobbitTime::drawCentered(String text, int y2) {
   
 void HobbitTime::drawWatchFace() { //override this method to customize how the watch face looks
   String textstring = "";
-  const char *lines [25][4] = {
-    {"2","Midnight","snack"},
-    {"1","Sleep"},
-    {"1","Sleep"},
-    {"1","Sleep"},
-    {"1","Sleep"},
-    {"1","Sleep"},
-    {"2","Almost","breakfast"},
-    {"1","Breakfast"},
-    {"3","Almost","second","breakfast"},
-    {"2","Second","breakfast"},
-    {"2","Almost","elevenses"},
-    {"1","Elevenses"},
-    {"1","Luncheon"},
-    {"3","After","lunch","nap"},
-    {"2","Afternoon","tea"},
-    {"1","Three-ish"},
-    {"2","Almost","dinner"},
-    {"1","Dinner"},
-    {"2","Almost","supper"},
-    {"1","Supper"},
-    {"1","Eight-ish"},
-    {"1","Nine-ish"},
-    {"1","Sleep"},
-    {"1","Sleep"},
-    {"2","Midnight","snack"}
+  const char *lines [25][3] = {
+    {"Midnight","snack"},
+    {"Sleep"},
+    {"Sleep"},
+    {"Sleep"},
+    {"Sleep"},
+    {"Sleep"},
+    {"Almost","breakfast"},
+    {"Breakfast"},
+    {"Almost","second","breakfast"},
+    {"Second","breakfast"},
+    {"Almost","elevenses"},
+    {"Elevenses"},
+    {"Luncheon"},
+    {"After","lunch","nap"},
+    {"Afternoon","tea"},
+    {"Three-ish"},
+    {"Almost","dinner"},
+    {"Dinner"},
+    {"Almost","supper"},
+    {"Supper"},
+    {"Eight-ish"},
+    {"Nine-ish"},
+    {"Sleep"},
+    {"Sleep"},
+    {"Midnight","snack"}
+  };
+  
+  const int linecount[25]= {
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    3,
+    2,
+    2,
+    1,
+    1,
+    3,
+    2,
+    1,
+    2,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2
   };
 
   //drawbg
@@ -60,14 +88,14 @@ void HobbitTime::drawWatchFace() { //override this method to customize how the w
 
   //drawlabel
   display.setFont(&NunitoSans_Black18pt7b);
-  if (lines[currentTime.Hour][0] == "1") {
+  if (linecount[currentTime.Hour] == 1) {
+    drawCentered(lines[currentTime.Hour][0],100);
+  } else if (linecount[currentTime.Hour] == 2){
+    drawCentered(lines[currentTime.Hour][0],86);
+    drawCentered(lines[currentTime.Hour][1],114);
+  } else if (linecount[currentTime.Hour] == 3) {
+    drawCentered(lines[currentTime.Hour][0],72);
     drawCentered(lines[currentTime.Hour][1],100);
-  } else if (lines[currentTime.Hour][0] == "2"){
-    drawCentered(lines[currentTime.Hour][1],86);
-    drawCentered(lines[currentTime.Hour][2],114);
-  } else if (lines[currentTime.Hour][0] == "3") {
-    drawCentered(lines[currentTime.Hour][1],72);
-    drawCentered(lines[currentTime.Hour][2],100);
-    drawCentered(lines[currentTime.Hour][3],128);
+    drawCentered(lines[currentTime.Hour][2],128);
   }
 }
